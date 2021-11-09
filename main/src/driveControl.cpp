@@ -2,9 +2,11 @@
 #include "vex.h"
 
 // Motor Groups
+motor_group Base = motor_group(BaseLeft, BaseRight);
 motor_group Lift = motor_group(LiftRightBack, LiftRightFront, LiftLeftBack, LiftLeftFront);
+motor_group LiftLeft = motor_group(LiftLeftBack, LiftLeftFront);
+motor_group LiftRight = motor_group(LiftRightBack, LiftRightFront);
 motor_group Arm = motor_group(ArmRight, ArmLeft);
-
 
 void driveControlStart()
 {
@@ -21,6 +23,13 @@ void driveControlStart()
         bool buttonL2 = Controller1.ButtonL2.pressing();
         bool buttonR1 = Controller1.ButtonR1.pressing();
         bool buttonR2 = Controller1.ButtonR2.pressing();
+        bool buttonY = Controller1.ButtonY.pressing();
+
+        // Limit Switches
+        bool stopLiftBackLeft = LimitLeftBack.pressing();
+        bool stopLiftBackRight = LimitRightBack.pressing();
+        bool stopLiftFrontLeft = LimitLeftFront.pressing();
+        bool stopLiftFrontRight = LimitRightFront.pressing();
 
         // Drive Base
         if (rightStickAbs > 5)
@@ -42,9 +51,15 @@ void driveControlStart()
         }
 
         // Lift
-        if (buttonL1 || buttonL2)
+        if (buttonL1)
         {
-            Lift.spin(buttonL1 ? forward : reverse, 100, pct);
+            stopLiftFrontLeft ? LiftLeft.stop(hold) : LiftLeft.spin(forward, 100, pct);
+            stopLiftFrontRight ? LiftRight.stop(hold) : LiftRight.spin(forward, 100, pct);
+        }
+        else if (buttonL2)
+        {
+            stopLiftBackLeft ? LiftLeft.stop(hold) : LiftLeft.spin(reverse, 100, pct);
+            stopLiftBackRight ? LiftRight.stop(hold) : LiftRight.spin(reverse, 100, pct);
         }
         else
         {
@@ -60,5 +75,17 @@ void driveControlStart()
         {
             Arm.stop(hold);
         }
+
+        // Temps Controller Print
+        if (buttonY)
+        {
+            int baseRightTemp = BaseRight.temperature(celsius);
+            int baseLeftTemp = BaseLeft.temperature(celsius);
+
+            Controller1.Screen.setCursor(0, 0);
+            Controller1.Screen.print("BLR: %d%s%d", baseLeftTemp, " ", baseRightTemp);
+        }
+
+        wait(20, msec);
     }
 }

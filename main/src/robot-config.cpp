@@ -17,6 +17,13 @@ motor LiftLeftFront = motor(PORT6, ratio36_1, false);
 motor LiftLeftBack = motor(PORT7, ratio36_1, false);
 motor ArmRight = motor(PORT9, ratio36_1, true);
 motor ArmLeft = motor(PORT8, ratio36_1, false);
+/*vex-vision-config:begin*/
+vision Vision = vision (PORT10, 50);
+/*vex-vision-config:end*/
+limit LimitLeftFront = limit(Brain.ThreeWirePort.A);
+limit LimitRightFront = limit(Brain.ThreeWirePort.B);
+limit LimitLeftBack = limit(Brain.ThreeWirePort.C);
+limit LimitRightBack = limit(Brain.ThreeWirePort.D);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

@@ -14,5 +14,8 @@
 #include "robot-config.h"
 
 // Motor Groups
+extern motor_group Base;
 extern motor_group Lift;
+extern motor_group LiftLeft;
+extern motor_group LiftRight;
 extern motor_group Arm;
