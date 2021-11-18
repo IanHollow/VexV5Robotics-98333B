@@ -10,7 +10,7 @@
       "cStandard": "c17",
       "cppStandard": "c++17",
       "intelliSenseMode": "windows-msvc-x64",
-      "compileCommands": "${workspaceFolder}/MainV1.4/compile_commands.json"
+      "compileCommands": "${workspaceFolder}/main/compile_commands.json"
     }
   ],
   "version": 4

@@ -4,7 +4,7 @@
 int tolerance = 20;
 
 const int visCenter = 158;
-//const int visWidth = 316;
+// const int visWidth = 316;
 
 // Pre-Define Functions
 bool alignedWithGoal(signature);
@@ -16,87 +16,77 @@ void rotateRight();
 
 void pickUpGoal(signature);
 
-    // Base.setVelocity(75, pct);
-    // Arm.setVelocity(75, pct);
-    // Base.spinFor(forward, 1, rev);
-    // Arm.spinFor(forward, 1.75, rev, false);
-    // BaseRight.spinFor(forward, 1.45, rev);
-    // Arm.spinFor(forward, 1.75, rev, false);
+// Base.setVelocity(75, pct);
+// Arm.setVelocity(75, pct);
+// Base.spinFor(forward, 1, rev);
+// Arm.spinFor(forward, 1.75, rev, false);
+// BaseRight.spinFor(forward, 1.45, rev);
+// Arm.spinFor(forward, 1.75, rev, false);
 
 // Main Function: Called at Start of Autonomous
 void autonomousStart()
 {
-    driveToGoal(Vision__BLUE_GOAL);
-    pickUpGoal(Vision__BLUE_GOAL);
+    driveToGoal(Vision__YGOAL);
+    pickUpGoal(Vision__YGOAL);
 }
 
 void driveToGoal(signature goalSig)
 {
-  while(true) {
-    Vision.takeSnapshot(Vision__BLUE_GOAL);
-
-    Brain.Screen.clearScreen();
-    Brain.Screen.setCursor(1, 1);
-
-    if (Vision.largestObject.exists) {
-      Brain.Screen.print("I see it");
-      if ((Vision.largestObject.originX + Vision.largestObject.width) > (visCenter)) {
-        rotateRight();
-        Brain.Screen.print("Go Right");
-      } else if ((Vision.largestObject.originX + Vision.largestObject.width) < (visCenter - 2*tolerance)) {
-        rotateLeft();
-        Brain.Screen.print("Go Left");
-      } else {
-        Brain.Screen.print("Centered");
-        Base.stop(coast);
-        if (closeToGoal(goalSig)) {
-          Brain.Screen.setCursor(2, 1);
-          Brain.Screen.print("Close to Goal");
-          Base.stop(coast);
-          Base.setVelocity(50, pct);
-          Base.spinFor(forward, 2, rev);
-          return;
-        } else {
-          driveForward();
-          wait(100, msec);
-        }
-      }
-    } else {
-      Brain.Screen.print("I don't see it");
-    }
-
-    wait(100, msec);
-  }
-}
-
-void pickUpGoal(signature) {
-  while(true) {
-    Arm.setVelocity(50, pct);
-    Arm.spinFor(forward, 1.75, rev);
-  }
-}
-
-bool alignedWithGoal(signature goalSig)
-{ // Is the Goal centered?
-    if (Vision.largestObject.exists)
+    while (true)
     {
-        const int farRightXPos = Vision.largestObject.originX + Vision.largestObject.width;
-        const int assumedCenterXPos = visCenter + (Vision.largestObject.width / 2);
+        Vision.takeSnapshot(goalSig);
 
-        if ((farRightXPos + 10) < assumedCenterXPos)
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1, 1);
+
+        if (Vision.largestObject.exists)
         {
-            return false;
-        }
-        else if ((farRightXPos - 10) > assumedCenterXPos)
-        {
-            return false;
+            if ((Vision.largestObject.originX + Vision.largestObject.width) > (visCenter))
+            {
+                rotateRight();
+                Brain.Screen.print("Go Right");
+            }
+            else if ((Vision.largestObject.originX + Vision.largestObject.width) < (visCenter - 2 * tolerance))
+            {
+                rotateLeft();
+                Brain.Screen.print("Go Left");
+            }
+            else
+            {
+                Brain.Screen.print("Centered");
+                Base.stop(coast);
+                if (closeToGoal(goalSig))
+                {
+                    Brain.Screen.setCursor(2, 1);
+                    Brain.Screen.print("Close to Goal");
+                    Base.stop(coast);
+                    Base.setVelocity(50, pct);
+                    Base.spinFor(forward, 2, rev);
+                    return;
+                }
+                else
+                {
+                    driveForward();
+                    wait(100, msec);
+                }
+            }
         }
         else
         {
-            return true;
+            Brain.Screen.print("No Object");
         }
+
+        wait(100, msec);
     }
-    return false;
+}
+
+void pickUpGoal(signature)
+{
+    while (true)
+    {
+        Arm.setVelocity(50, pct);
+        Arm.spinFor(forward, 1.75, rev);
+    }
 }
 
 bool closeToGoal(signature goalSig)
