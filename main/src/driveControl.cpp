@@ -69,7 +69,7 @@ void driveControlStart()
         // Arm
         if (buttonR1 || buttonR2)
         {
-            Arm.spin(buttonR1 ? forward : reverse, 100, pct);
+            Arm.spin(buttonR1 ? forward : reverse, 50, pct);
         }
         else
         {

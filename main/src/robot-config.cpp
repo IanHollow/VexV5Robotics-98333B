@@ -17,20 +17,15 @@ motor LiftLeftFront = motor(PORT6, ratio36_1, false);
 motor LiftLeftBack = motor(PORT7, ratio36_1, false);
 motor ArmRight = motor(PORT9, ratio36_1, true);
 motor ArmLeft = motor(PORT8, ratio36_1, false);
-/*vex-vision-config:begin*/
-signature Vision__BGOAL = signature (1, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__YGOAL = signature (2, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__SIG_3 = signature (3, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__SIG_4 = signature (4, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__SIG_5 = signature (5, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__SIG_6 = signature (6, 0, 0, 0, 0, 0, 0, 3, 0);
-signature Vision__SIG_7 = signature (7, 0, 0, 0, 0, 0, 0, 3, 0);
-vision Vision = vision (PORT5, 50, Vision__BGOAL, Vision__YGOAL, Vision__SIG_3, Vision__SIG_4, Vision__SIG_5, Vision__SIG_6, Vision__SIG_7);
-/*vex-vision-config:end*/
 limit LimitLeftFront = limit(Brain.ThreeWirePort.A);
 limit LimitRightFront = limit(Brain.ThreeWirePort.B);
 limit LimitLeftBack = limit(Brain.ThreeWirePort.C);
 limit LimitRightBack = limit(Brain.ThreeWirePort.D);
+/*vex-vision-config:begin*/
+signature VisionSensor__BGOAL = signature (1, -2217, -1597, -1908, 5553, 6491, 6022, 2.5, 0);
+signature VisionSensor__YGOAL = signature (2, 1135, 2365, 1750, -3405, -2893, -3150, 2.5, 0);
+vision VisionSensor = vision (PORT10, 45, VisionSensor__BGOAL, VisionSensor__YGOAL);
+/*vex-vision-config:end*/
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

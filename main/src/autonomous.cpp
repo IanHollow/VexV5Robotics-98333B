@@ -14,7 +14,7 @@ void driveForward();
 void rotateLeft();
 void rotateRight();
 
-void pickUpGoal(signature);
+void pickUpGoal();
 
 // Base.setVelocity(75, pct);
 // Arm.setVelocity(75, pct);
@@ -26,28 +26,28 @@ void pickUpGoal(signature);
 // Main Function: Called at Start of Autonomous
 void autonomousStart()
 {
-    driveToGoal(Vision__YGOAL);
-    pickUpGoal(Vision__YGOAL);
+    driveToGoal(VisionSensor__YGOAL);
+    pickUpGoal();
 }
 
 void driveToGoal(signature goalSig)
 {
     while (true)
     {
-        Vision.takeSnapshot(goalSig);
+        VisionSensor.takeSnapshot(goalSig);
 
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1, 1);
 
-        if (Vision.largestObject.exists)
-        {
-            if ((Vision.largestObject.originX + Vision.largestObject.width) > (visCenter))
-            {
+        if (VisionSensor.largestObject.exists)
+        { // Check if the object exists
+            if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) > (visCenter))
+            { // Is X location of object + width > center screen then rotate couterclockwise
                 rotateRight();
                 Brain.Screen.print("Go Right");
             }
-            else if ((Vision.largestObject.originX + Vision.largestObject.width) < (visCenter - 2 * tolerance))
-            {
+            else if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) < (visCenter - 2 * tolerance))
+            { // Is X location of object + width < center screen then rotate clockwise
                 rotateLeft();
                 Brain.Screen.print("Go Left");
             }
@@ -59,7 +59,7 @@ void driveToGoal(signature goalSig)
                 {
                     Brain.Screen.setCursor(2, 1);
                     Brain.Screen.print("Close to Goal");
-                    Base.stop(coast);
+                    Base.stop();
                     Base.setVelocity(50, pct);
                     Base.spinFor(forward, 2, rev);
                     return;
@@ -67,7 +67,7 @@ void driveToGoal(signature goalSig)
                 else
                 {
                     driveForward();
-                    wait(100, msec);
+                    wait(20, msec);
                 }
             }
         }
@@ -80,18 +80,16 @@ void driveToGoal(signature goalSig)
     }
 }
 
-void pickUpGoal(signature)
+
+void pickUpGoal()
 {
-    while (true)
-    {
-        Arm.setVelocity(50, pct);
-        Arm.spinFor(forward, 1.75, rev);
-    }
+    Arm.setVelocity(50, pct);
+    Arm.spinFor(forward, 1.75, rev);
 }
 
 bool closeToGoal(signature goalSig)
 { // Is the Goal close enough?
-    return Vision.largestObject.width > 70;
+    return VisionSensor.largestObject.width > 100;
 }
 
 void driveForward()

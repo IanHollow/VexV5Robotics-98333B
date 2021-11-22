@@ -14,18 +14,18 @@ extern motor LiftLeftFront;
 extern motor LiftLeftBack;
 extern motor ArmRight;
 extern motor ArmLeft;
-extern signature Vision__BGOAL;
-extern signature Vision__YGOAL;
-extern signature Vision__SIG_3;
-extern signature Vision__SIG_4;
-extern signature Vision__SIG_5;
-extern signature Vision__SIG_6;
-extern signature Vision__SIG_7;
-extern vision Vision;
 extern limit LimitLeftFront;
 extern limit LimitRightFront;
 extern limit LimitLeftBack;
 extern limit LimitRightBack;
+extern signature VisionSensor__BGOAL;
+extern signature VisionSensor__YGOAL;
+extern signature VisionSensor__SIG_3;
+extern signature VisionSensor__SIG_4;
+extern signature VisionSensor__SIG_5;
+extern signature VisionSensor__SIG_6;
+extern signature VisionSensor__SIG_7;
+extern vision VisionSensor;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.

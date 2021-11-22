@@ -14,11 +14,11 @@
 // LiftLeftBack         motor         7               
 // ArmRight             motor         9               
 // ArmLeft              motor         8               
-// Vision               vision        5               
 // LimitLeftFront       limit         A               
 // LimitRightFront      limit         B               
 // LimitLeftBack        limit         C               
 // LimitRightBack       limit         D               
+// VisionSensor         vision        10              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 using namespace vex;
