@@ -42,11 +42,12 @@ void driveToGoal(signature goalSig)
         if (VisionSensor.largestObject.exists)
         { // Check if the object exists
             if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) > (visCenter))
-            { // Is X location of object + width > center screen then rotate couterclockwise
+            { // Is X location of object + width > center screen then rotate counterclockwise
                 rotateRight();
                 Brain.Screen.print("Go Right");
             }
-            else if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) < (visCenter - 2 * tolerance))
+            else if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) <
+                     (visCenter - 2 * tolerance))
             { // Is X location of object + width < center screen then rotate clockwise
                 rotateLeft();
                 Brain.Screen.print("Go Left");
@@ -79,7 +80,6 @@ void driveToGoal(signature goalSig)
         wait(100, msec);
     }
 }
-
 
 void pickUpGoal()
 {

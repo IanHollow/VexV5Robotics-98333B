@@ -5,7 +5,7 @@ using signature = vision::signature;
 using code = vision::code;
 
 // A global instance of brain used for printing to the V5 Brain screen
-brain  Brain;
+brain Brain;
 
 // VEXcode device constructors
 controller Controller1 = controller(primary);
@@ -22,9 +22,9 @@ limit LimitRightFront = limit(Brain.ThreeWirePort.B);
 limit LimitLeftBack = limit(Brain.ThreeWirePort.C);
 limit LimitRightBack = limit(Brain.ThreeWirePort.D);
 /*vex-vision-config:begin*/
-signature VisionSensor__BGOAL = signature (1, -2217, -1597, -1908, 5553, 6491, 6022, 2.5, 0);
-signature VisionSensor__YGOAL = signature (2, 1135, 2365, 1750, -3405, -2893, -3150, 2.5, 0);
-vision VisionSensor = vision (PORT10, 45, VisionSensor__BGOAL, VisionSensor__YGOAL);
+signature VisionSensor__BGOAL = signature(1, -2217, -1597, -1908, 5553, 6491, 6022, 2.5, 0);
+signature VisionSensor__YGOAL = signature(2, 1135, 2365, 1750, -3405, -2893, -3150, 2.5, 0);
+vision VisionSensor = vision(PORT10, 45, VisionSensor__BGOAL, VisionSensor__YGOAL);
 /*vex-vision-config:end*/
 
 // VEXcode generated functions
@@ -33,9 +33,10 @@ bool RemoteControlCodeEnabled = true;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
- * 
+ *
  * This should be called at the start of your int main function.
  */
-void vexcodeInit( void ) {
-  // nothing to initialize
+void vexcodeInit(void)
+{
+    // nothing to initialize
 }

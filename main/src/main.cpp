@@ -5,20 +5,20 @@
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// BaseRight            motor         1               
-// BaseLeft             motor         2               
-// LiftRightBack        motor         3               
-// LiftRightFront       motor         4               
-// LiftLeftFront        motor         6               
-// LiftLeftBack         motor         7               
-// ArmRight             motor         9               
-// ArmLeft              motor         8               
-// LimitLeftFront       limit         A               
-// LimitRightFront      limit         B               
-// LimitLeftBack        limit         C               
-// LimitRightBack       limit         D               
-// VisionSensor         vision        10              
+// Controller1          controller
+// BaseRight            motor         1
+// BaseLeft             motor         2
+// LiftRightBack        motor         3
+// LiftRightFront       motor         4
+// LiftLeftFront        motor         6
+// LiftLeftBack         motor         7
+// ArmRight             motor         9
+// ArmLeft              motor         8
+// LimitLeftFront       limit         A
+// LimitRightFront      limit         B
+// LimitLeftBack        limit         C
+// LimitRightBack       limit         D
+// VisionSensor         vision        10
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 using namespace vex;
