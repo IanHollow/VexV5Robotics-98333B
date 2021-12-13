@@ -1,4 +1,3 @@
-#include "driveControl.h"
 #include "vex.h"
 
 // Motor Groups
@@ -23,7 +22,7 @@ void driveControlStart()
         bool buttonL2 = Controller1.ButtonL2.pressing();
         bool buttonR1 = Controller1.ButtonR1.pressing();
         bool buttonR2 = Controller1.ButtonR2.pressing();
-        bool buttonY = Controller1.ButtonY.pressing();
+        bool buttonB = Controller1.ButtonB.pressing();
 
         // Limit Switches
         bool stopLiftBackLeft = LimitLeftBack.pressing();
@@ -69,21 +68,11 @@ void driveControlStart()
         // Arm
         if (buttonR1 || buttonR2)
         {
-            Arm.spin(buttonR1 ? forward : reverse, 50, pct);
+            Arm.spin(buttonR1 ? forward : reverse, (buttonR2 || buttonB) ? 100 : 30, pct);
         }
         else
         {
             Arm.stop(hold);
-        }
-
-        // Temps Controller Print
-        if (buttonY)
-        {
-            int baseRightTemp = BaseRight.temperature(celsius);
-            int baseLeftTemp = BaseLeft.temperature(celsius);
-
-            Controller1.Screen.setCursor(0, 0);
-            Controller1.Screen.print("BLR: %d%s%d", baseLeftTemp, " ", baseRightTemp);
         }
 
         wait(20, msec);

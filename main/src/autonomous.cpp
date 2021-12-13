@@ -13,21 +13,76 @@ bool closeToGoal(signature);
 void driveForward();
 void rotateLeft();
 void rotateRight();
-
 void pickUpGoal();
 
-// Base.setVelocity(75, pct);
-// Arm.setVelocity(75, pct);
-// Base.spinFor(forward, 1, rev);
-// Arm.spinFor(forward, 1.75, rev, false);
-// BaseRight.spinFor(forward, 1.45, rev);
-// Arm.spinFor(forward, 1.75, rev, false);
+void liftHold()
+{
+    while (true)
+    {
+        Lift.stop(hold); // Lock Lift
+        wait(100, msec);
+    }
+}
 
 // Main Function: Called at Start of Autonomous
 void autonomousStart()
 {
+    // Set Velocity
+    Base.setVelocity(100, pct);
+    Lift.setVelocity(100, pct);
+    Arm.setVelocity(100, pct);
+
+    Lift.spinFor(forward, 4, rev);
+    Lift.spinFor(reverse, 4, rev);
+
+    thread holdLift(liftHold);
+
+    // Drive Forward
+    Base.spinFor(forward, 1.25, rev);
+
+    // Drive to Yellow Goal & pickup
     driveToGoal(VisionSensor__YGOAL);
-    pickUpGoal();
+
+    // Push Goal
+    Base.spinFor(forward, 3, rev);
+
+    // Turn to next Goal
+    Arm.spinFor(forward, 0.5, rev);
+
+    BaseLeft.spinFor(reverse, 0.25, rev, false);
+    BaseRight.spinFor(forward, 0.25, rev);
+
+    Base.spinFor(forward, 0.5, rev);
+
+    Arm.spinFor(reverse, 0.5, rev);
+
+    Base.spinFor(reverse, 0.5, rev);
+
+    BaseLeft.spinFor(forward, 1, rev, false);
+    BaseRight.spinFor(reverse, 1, rev);
+
+    Base.spinFor(forward, 0.5, rev);
+
+    // Drive to Yellow Goal & pickup
+    driveToGoal(VisionSensor__YGOAL);
+
+    Arm.spinFor(forward, 0.5, rev);
+
+    Base.spinFor(forward, 3, rev);
+
+    Arm.spinFor(reverse, 0.5, rev);
+
+    BaseLeft.spinFor(reverse, 1, rev, false);
+    BaseRight.spinFor(forward, 1, rev);
+
+    // Drive to Yellow Goal & pickup
+    driveToGoal(VisionSensor__YGOAL);
+
+    Arm.spinFor(forward, 0.5, rev);
+
+    Base.spinFor(forward, 3, rev);
+
+    Arm.spinFor(reverse, 0.5, rev);
 }
 
 void driveToGoal(signature goalSig)
@@ -61,8 +116,6 @@ void driveToGoal(signature goalSig)
                     Brain.Screen.setCursor(2, 1);
                     Brain.Screen.print("Close to Goal");
                     Base.stop();
-                    Base.setVelocity(50, pct);
-                    Base.spinFor(forward, 2, rev);
                     return;
                 }
                 else
@@ -83,13 +136,19 @@ void driveToGoal(signature goalSig)
 
 void pickUpGoal()
 {
-    Arm.setVelocity(50, pct);
-    Arm.spinFor(forward, 1.75, rev);
+    Base.setVelocity(100, pct);
+    Base.spinFor(forward, 0.9, rev);
+    Arm.setVelocity(100, pct);
+    Arm.spinFor(forward, 1.25, rev);
+    Arm.setVelocity(100, pct);
+    Arm.spinFor(forward, 2, rev);
+    wait(500, msec);
+    Arm.spinFor(reverse, 3.25, rev);
 }
 
 bool closeToGoal(signature goalSig)
 { // Is the Goal close enough?
-    return VisionSensor.largestObject.width > 100;
+    return VisionSensor.largestObject.width > 130;
 }
 
 void driveForward()

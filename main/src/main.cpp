@@ -28,13 +28,38 @@ competition Competition;
 
 // define your global instances of motors and other devices here
 
+void telemetry()
+{
+    while (true)
+    {
+        int baseRightTemp = BaseRight.temperature(celsius);
+        int baseLeftTemp = BaseLeft.temperature(celsius);
+        int LiftRightBackTemp = LiftRightBack.temperature(celsius);
+        int LiftRightFrontTemp = LiftRightFront.temperature(celsius);
+        int LiftLeftBackTemp = LiftLeftBack.temperature(celsius);
+        int LiftLeftFrontTemp = LiftLeftFront.temperature(celsius);
+
+        Controller1.Screen.clearScreen();
+
+        Controller1.Screen.setCursor(1, 0);
+        Controller1.Screen.print("B: %d%s%d", baseLeftTemp, " ", baseRightTemp);
+
+        Controller1.Screen.setCursor(2, 0);
+        Controller1.Screen.print("LR: %d%s%d%s%d%s%d", LiftRightBackTemp, " ", LiftRightFrontTemp,
+                                 " LL: ", LiftLeftBackTemp, " ", LiftLeftFrontTemp);
+
+        wait(5000, msec);
+    }
+}
+
 void pre_auton(void)
 {
     // Initializing Robot Configuration. DO NOT REMOVE!
     vexcodeInit();
 
     // All activities that occur before the competition starts
-    Controller1.Screen.clearScreen();
+
+    thread controllerScreen(telemetry);
 }
 
 void autonomous(void)
