@@ -1,4 +1,4 @@
-#include "autonomous.h"
+/*#include "autonomous.h"
 #include "vex.h"
 
 int tolerance = 20;
@@ -166,4 +166,4 @@ void rotateRight()
 { // Rotate Clockwise
     BaseRight.spin(reverse, 30, pct);
     BaseLeft.spin(forward, 30, pct);
-}
+}*/
