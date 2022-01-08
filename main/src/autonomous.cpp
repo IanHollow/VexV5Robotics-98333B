@@ -1,27 +1,64 @@
-/*#include "autonomous.h"
+#include "autonomous.h"
 #include "vex.h"
 
-int tolerance = 20;
+int tolerance = 10;
 
 const int visCenter = 158;
 // const int visWidth = 316;
 
 // Pre-Define Functions
-bool alignedWithGoal(signature);
-void alignWithGoal(signature);
+void driveToGoal(signature);
+void pickUpGoal();
 bool closeToGoal(signature);
 void driveForward();
 void rotateLeft();
 void rotateRight();
-void pickUpGoal();
 
-void liftHold()
-{
-    while (true)
-    {
-        Lift.stop(hold); // Lock Lift
-        wait(100, msec);
-    }
+void fifteenSecRightLeft() {
+  Base.setVelocity(100, pct);
+
+  // Drive Forward
+  Base.spinFor(forward, 2, rev, false);
+
+  // Lift Deployment
+  Lift.spinFor(forward, 4, rev);
+  Lift.spinFor(reverse, 4, rev);
+
+  driveToGoal(Vision__YGOAL);
+
+  pickUpGoal();
+
+  Lift.setVelocity(75, pct);
+  Lift.spinFor(forward, 4, rev, false);
+
+  wait(1, sec);
+
+  Base.spinFor(reverse, 6, rev);
+}
+
+void fifteenSecMiddle() {
+  Base.setVelocity(100, pct);
+
+  // Drive Forward & Lift Deployment
+  Base.spinFor(forward, 2, rev, false);
+  Lift.spinFor(forward, 4, rev);
+
+  BaseLeft.spinFor(forward, 0.75, rev, false);
+  BaseRight.spinFor(reverse, 0.75, rev, false);
+  Lift.spinFor(reverse, 4, rev);
+
+  Base.spinFor(forward, 3.5, rev);
+
+  driveToGoal(Vision__YGOAL);
+
+  pickUpGoal();
+
+  Lift.setVelocity(75, pct);
+  Lift.spinFor(forward, 4, rev, false);
+
+  wait(1, sec);
+
+  Base.spinFor(reverse, 8, rev);
 }
 
 // Main Function: Called at Start of Autonomous
@@ -30,85 +67,37 @@ void autonomousStart()
     // Set Velocity
     Base.setVelocity(100, pct);
     Lift.setVelocity(100, pct);
-    Arm.setVelocity(100, pct);
 
-    Lift.spinFor(forward, 4, rev);
-    Lift.spinFor(reverse, 4, rev);
-
-    thread holdLift(liftHold);
-
-    // Drive Forward
-    Base.spinFor(forward, 1.25, rev);
-
-    // Drive to Yellow Goal & pickup
-    driveToGoal(VisionSensor__YGOAL);
-
-    // Push Goal
-    Base.spinFor(forward, 3, rev);
-
-    // Turn to next Goal
-    Arm.spinFor(forward, 0.5, rev);
-
-    BaseLeft.spinFor(reverse, 0.25, rev, false);
-    BaseRight.spinFor(forward, 0.25, rev);
-
-    Base.spinFor(forward, 0.5, rev);
-
-    Arm.spinFor(reverse, 0.5, rev);
-
-    Base.spinFor(reverse, 0.5, rev);
-
-    BaseLeft.spinFor(forward, 1, rev, false);
-    BaseRight.spinFor(reverse, 1, rev);
-
-    Base.spinFor(forward, 0.5, rev);
-
-    // Drive to Yellow Goal & pickup
-    driveToGoal(VisionSensor__YGOAL);
-
-    Arm.spinFor(forward, 0.5, rev);
-
-    Base.spinFor(forward, 3, rev);
-
-    Arm.spinFor(reverse, 0.5, rev);
-
-    BaseLeft.spinFor(reverse, 1, rev, false);
-    BaseRight.spinFor(forward, 1, rev);
-
-    // Drive to Yellow Goal & pickup
-    driveToGoal(VisionSensor__YGOAL);
-
-    Arm.spinFor(forward, 0.5, rev);
-
-    Base.spinFor(forward, 3, rev);
-
-    Arm.spinFor(reverse, 0.5, rev);
+    fifteenSecMiddle();
+    
 }
+
+
 
 void driveToGoal(signature goalSig)
 {
     while (true)
     {
-        VisionSensor.takeSnapshot(goalSig);
+        Vision.takeSnapshot(goalSig);
 
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1, 1);
 
-        if (VisionSensor.largestObject.exists)
+        if (Vision.largestObject.exists)
         { // Check if the object exists
-            if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) > (visCenter))
+            if ((Vision.largestObject.centerX - tolerance) > (visCenter))
             { // Is X location of object + width > center screen then rotate counterclockwise
                 rotateRight();
                 Brain.Screen.print("Go Right");
             }
-            else if ((VisionSensor.largestObject.originX + VisionSensor.largestObject.width) <
-                     (visCenter - 2 * tolerance))
+            else if ((Vision.largestObject.centerX + tolerance) < (visCenter))
             { // Is X location of object + width < center screen then rotate clockwise
                 rotateLeft();
                 Brain.Screen.print("Go Left");
             }
             else
             {
+              //while(true) {
                 Brain.Screen.print("Centered");
                 Base.stop(coast);
                 if (closeToGoal(goalSig))
@@ -121,34 +110,27 @@ void driveToGoal(signature goalSig)
                 else
                 {
                     driveForward();
-                    wait(20, msec);
+                    wait(200, msec);
                 }
+              //}
             }
         }
         else
         {
             Brain.Screen.print("No Object");
         }
-
-        wait(100, msec);
     }
 }
 
 void pickUpGoal()
 {
     Base.setVelocity(100, pct);
-    Base.spinFor(forward, 0.9, rev);
-    Arm.setVelocity(100, pct);
-    Arm.spinFor(forward, 1.25, rev);
-    Arm.setVelocity(100, pct);
-    Arm.spinFor(forward, 2, rev);
-    wait(500, msec);
-    Arm.spinFor(reverse, 3.25, rev);
+    Base.spinFor(forward, 3, rev);
 }
 
 bool closeToGoal(signature goalSig)
 { // Is the Goal close enough?
-    return VisionSensor.largestObject.width > 130;
+    return Vision.largestObject.width > 180;
 }
 
 void driveForward()
@@ -166,4 +148,4 @@ void rotateRight()
 { // Rotate Clockwise
     BaseRight.spin(reverse, 30, pct);
     BaseLeft.spin(forward, 30, pct);
-}*/
+}

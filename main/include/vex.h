@@ -17,7 +17,6 @@
 extern motor_group Base;
 extern motor_group BaseRight;
 extern motor_group BaseLeft;
-// extern motor_group Lift;
-// extern motor_group LiftLeft;
-// extern motor_group LiftRight;
-// extern motor_group Arm;
+extern motor_group Lift;
+extern motor_group LiftLeft;
+extern motor_group LiftRight;

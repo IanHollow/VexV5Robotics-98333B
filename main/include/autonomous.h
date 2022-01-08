@@ -3,5 +3,3 @@
 #include "vex.h"
 
 void autonomousStart();
-
-//void driveToGoal(signature);

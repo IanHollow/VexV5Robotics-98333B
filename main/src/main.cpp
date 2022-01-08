@@ -8,8 +8,13 @@
 // Controller1          controller                    
 // BaseFrontLeft        motor         1               
 // BaseBackLeft         motor         2               
-// BaseFrontRight       motor         3               
+// BaseFrontRight       motor         11              
 // BaseBackRight        motor         4               
+// LiftLeftBack         motor         5               
+// LiftLeftFront        motor         6               
+// LiftRightBack        motor         7               
+// LiftRightFront       motor         8               
+// Vision               vision        10              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 using namespace vex;
@@ -25,10 +30,10 @@ void telemetry()
     {
         int baseRightTemp = BaseRight.temperature(celsius);
         int baseLeftTemp = BaseLeft.temperature(celsius);
-        // int LiftRightBackTemp = LiftRightBack.temperature(celsius);
-        // int LiftRightFrontTemp = LiftRightFront.temperature(celsius);
-        // int LiftLeftBackTemp = LiftLeftBack.temperature(celsius);
-        // int LiftLeftFrontTemp = LiftLeftFront.temperature(celsius);
+        int LiftRightBackTemp = LiftRightBack.temperature(celsius);
+        int LiftRightFrontTemp = LiftRightFront.temperature(celsius);
+        int LiftLeftBackTemp = LiftLeftBack.temperature(celsius);
+        int LiftLeftFrontTemp = LiftLeftFront.temperature(celsius);
 
         Controller1.Screen.clearScreen();
 
@@ -36,8 +41,8 @@ void telemetry()
         Controller1.Screen.print("B: %d%s%d", baseLeftTemp, " ", baseRightTemp);
 
         Controller1.Screen.setCursor(2, 0);
-        // Controller1.Screen.print("LR: %d%s%d%s%d%s%d", LiftRightBackTemp, " ", LiftRightFrontTemp,
-        //                          " LL: ", LiftLeftBackTemp, " ", LiftLeftFrontTemp);
+        Controller1.Screen.print("LR: %d%s%d%s%d%s%d", LiftRightBackTemp, " ", LiftRightFrontTemp,
+                                  " LL: ", LiftLeftBackTemp, " ", LiftLeftFrontTemp);
 
         wait(5000, msec);
     }
@@ -55,7 +60,7 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    //autonomousStart();
+    autonomousStart();
 }
 
 void usercontrol(void)

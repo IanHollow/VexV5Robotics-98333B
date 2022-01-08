@@ -4,9 +4,9 @@
 motor_group Base = motor_group(BaseFrontRight, BaseBackRight, BaseFrontLeft, BaseBackLeft);
 motor_group BaseRight = motor_group(BaseFrontRight, BaseBackRight);
 motor_group BaseLeft = motor_group(BaseFrontLeft, BaseBackLeft);
-// motor_group Lift = motor_group(LiftRightBack, LiftRightFront, LiftLeftBack, LiftLeftFront);
-// motor_group LiftLeft = motor_group(LiftLeftBack, LiftLeftFront);
-// motor_group LiftRight = motor_group(LiftRightBack, LiftRightFront);
+motor_group Lift = motor_group(LiftRightBack, LiftRightFront, LiftLeftBack, LiftLeftFront);
+motor_group LiftLeft = motor_group(LiftLeftBack, LiftLeftFront);
+motor_group LiftRight = motor_group(LiftRightBack, LiftRightFront);
 // motor_group Arm = motor_group(ArmRight, ArmLeft);
 
 void driveControlStart()
@@ -20,8 +20,8 @@ void driveControlStart()
         int leftStickAbs = abs(Controller1.Axis3.position());
 
         // Controller Buttons
-        // bool buttonL1 = Controller1.ButtonL1.pressing();
-        // bool buttonL2 = Controller1.ButtonL2.pressing();
+        bool buttonL1 = Controller1.ButtonL1.pressing();
+        bool buttonL2 = Controller1.ButtonL2.pressing();
         // bool buttonR1 = Controller1.ButtonR1.pressing();
         // bool buttonR2 = Controller1.ButtonR2.pressing();
         // bool buttonB = Controller1.ButtonB.pressing();
@@ -52,20 +52,18 @@ void driveControlStart()
         }
 
         // Lift
-        // if (buttonL1)
-        // {
-        //     stopLiftFrontLeft ? LiftLeft.stop(hold) : LiftLeft.spin(forward, 100, pct);
-        //     stopLiftFrontRight ? LiftRight.stop(hold) : LiftRight.spin(forward, 100, pct);
-        // }
-        // else if (buttonL2)
-        // {
-        //     stopLiftBackLeft ? LiftLeft.stop(hold) : LiftLeft.spin(reverse, 100, pct);
-        //     stopLiftBackRight ? LiftRight.stop(hold) : LiftRight.spin(reverse, 100, pct);
-        // }
-        // else
-        // {
-        //     Lift.stop(hold);
-        // }
+        if (buttonL1)
+        {
+            Lift.spin(forward, 100, pct);
+        }
+        else if (buttonL2)
+        {
+            Lift.spin(reverse, 100, pct);
+        }
+        else
+        {
+            Lift.stop(hold);
+        }
 
         // Arm
         // if (buttonR1 || buttonR2)
