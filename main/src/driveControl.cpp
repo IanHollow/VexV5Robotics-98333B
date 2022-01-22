@@ -26,12 +26,6 @@ void driveControlStart()
         // bool buttonR2 = Controller1.ButtonR2.pressing();
         // bool buttonB = Controller1.ButtonB.pressing();
 
-        // Limit Switches
-        // bool stopLiftBackLeft = LimitLeftBack.pressing();
-        // bool stopLiftBackRight = LimitRightBack.pressing();
-        // bool stopLiftFrontLeft = LimitLeftFront.pressing();
-        // bool stopLiftFrontRight = LimitRightFront.pressing();
-
         // Drive Base
         if (rightStickAbs > 5)
         {

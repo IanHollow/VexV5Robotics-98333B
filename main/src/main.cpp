@@ -1,12 +1,8 @@
-#include "autonomous.h"
-#include "driveControl.h"
-#include "vex.h"
-
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// BaseFrontLeft        motor         1               
+// BaseFrontLeft        motor         12              
 // BaseBackLeft         motor         2               
 // BaseFrontRight       motor         11              
 // BaseBackRight        motor         4               
@@ -14,8 +10,25 @@
 // LiftLeftFront        motor         6               
 // LiftRightBack        motor         7               
 // LiftRightFront       motor         8               
-// Vision               vision        10              
+// Vision               vision        9               
 // ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// BaseFrontLeft        motor         12              
+// BaseBackLeft         motor         2               
+// BaseFrontRight       motor         11              
+// BaseBackRight        motor         4               
+// LiftLeftBack         motor         5               
+// LiftLeftFront        motor         6               
+// LiftRightBack        motor         7               
+// LiftRightFront       motor         8               
+// Vision               vision        9               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+#include "autonomous.h"
+#include "driveControl.h"
+#include "vex.h"
 
 using namespace vex;
 
@@ -34,6 +47,7 @@ void telemetry()
         int LiftRightFrontTemp = LiftRightFront.temperature(celsius);
         int LiftLeftBackTemp = LiftLeftBack.temperature(celsius);
         int LiftLeftFrontTemp = LiftLeftFront.temperature(celsius);
+        int batteryPercent = Brain.Battery.capacity();
 
         Controller1.Screen.clearScreen();
 
@@ -44,7 +58,10 @@ void telemetry()
         Controller1.Screen.print("LR: %d%s%d%s%d%s%d", LiftRightBackTemp, " ", LiftRightFrontTemp,
                                   " LL: ", LiftLeftBackTemp, " ", LiftLeftFrontTemp);
 
-        wait(5000, msec);
+        Controller1.Screen.setCursor(3, 0);
+        Controller1.Screen.print("B: %d%s", batteryPercent, "%");
+
+        wait(1000, msec);
     }
 }
 
@@ -56,6 +73,7 @@ void pre_auton(void)
     // All activities that occur before the competition starts
 
     thread controllerScreen(telemetry);
+
 }
 
 void autonomous(void)

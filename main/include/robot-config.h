@@ -14,13 +14,6 @@ extern motor LiftLeftBack;
 extern motor LiftLeftFront;
 extern motor LiftRightBack;
 extern motor LiftRightFront;
-extern signature Vision__YGOAL;
-extern signature Vision__SIG_2;
-extern signature Vision__SIG_3;
-extern signature Vision__SIG_4;
-extern signature Vision__SIG_5;
-extern signature Vision__SIG_6;
-extern signature Vision__SIG_7;
 extern vision Vision;
 
 /**

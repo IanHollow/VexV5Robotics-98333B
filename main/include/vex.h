@@ -20,3 +20,6 @@ extern motor_group BaseLeft;
 extern motor_group Lift;
 extern motor_group LiftLeft;
 extern motor_group LiftRight;
+
+// Timer
+extern unsigned int curTime;
