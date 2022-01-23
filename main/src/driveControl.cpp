@@ -7,7 +7,6 @@ motor_group BaseLeft = motor_group(BaseFrontLeft, BaseBackLeft);
 motor_group Lift = motor_group(LiftRightBack, LiftRightFront, LiftLeftBack, LiftLeftFront);
 motor_group LiftLeft = motor_group(LiftLeftBack, LiftLeftFront);
 motor_group LiftRight = motor_group(LiftRightBack, LiftRightFront);
-// motor_group Arm = motor_group(ArmRight, ArmLeft);
 
 void driveControlStart()
 {
@@ -22,9 +21,6 @@ void driveControlStart()
         // Controller Buttons
         bool buttonL1 = Controller1.ButtonL1.pressing();
         bool buttonL2 = Controller1.ButtonL2.pressing();
-        // bool buttonR1 = Controller1.ButtonR1.pressing();
-        // bool buttonR2 = Controller1.ButtonR2.pressing();
-        // bool buttonB = Controller1.ButtonB.pressing();
 
         // Drive Base
         if (rightStickAbs > 5)
@@ -58,16 +54,6 @@ void driveControlStart()
         {
             Lift.stop(hold);
         }
-
-        // Arm
-        // if (buttonR1 || buttonR2)
-        // {
-        //     Arm.spin(buttonR1 ? forward : reverse, (buttonR2 || buttonB) ? 100 : 30, pct);
-        // }
-        // else
-        // {
-        //     Arm.stop(hold);
-        // }
 
         wait(20, msec);
     }

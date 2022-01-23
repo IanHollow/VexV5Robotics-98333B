@@ -10,7 +10,7 @@
 #include "v5.h"
 #include "v5_vcs.h"
 
-// Vex Motors
+// Vex Motors Config
 #include "robot-config.h"
 
 // Motor Groups
@@ -22,4 +22,4 @@ extern motor_group LiftLeft;
 extern motor_group LiftRight;
 
 // Timer
-extern unsigned int curTime;
+extern int curTime;
