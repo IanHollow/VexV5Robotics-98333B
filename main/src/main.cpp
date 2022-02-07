@@ -1,3 +1,16 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// BaseFrontLeft        motor         12              
+// BaseBackLeft         motor         2               
+// BaseFrontRight       motor         11              
+// BaseBackRight        motor         4               
+// LiftLeftBack         motor         5               
+// LiftLeftFront        motor         6               
+// LiftRightBack        motor         7               
+// LiftRightFront       motor         8               
+// ---- END VEXCODE CONFIGURED DEVICES ----
 #include "autonomous.h"
 #include "driveControl.h"
 #include "vex.h"

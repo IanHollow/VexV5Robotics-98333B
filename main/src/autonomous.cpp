@@ -11,8 +11,8 @@ int curTime = Brain.timer(msec);
 bool locateFinshed = false;
 
 // Pre-Define Functions
-void driveToGoal(signature);
-bool closeToGoal(signature);
+void driveToGoal(vex::vision::signature);
+bool closeToGoal(vex::vision::signature);
 void driveForward();
 void rotateLeft();
 void rotateRight();
@@ -29,7 +29,7 @@ void autonomousStart()
     Base.setVelocity(100, pct);
     Lift.setVelocity(100, pct);
 
-    sec15RL();
+    autoSkills();
 }
 
 void sec15RL()
@@ -64,8 +64,10 @@ void autoSkills()
     Lift.setVelocity(100, pct);
 
     // Drive Forward
-    Base.spinFor(forward, 10, rev);
+    BaseLeft.setVelocity(90, pct);
+    Base.spinFor(forward, 11.5, rev);
 
+    Base.setVelocity(100, pct);
     Base.spinFor(reverse, 1, rev);
 
     BaseLeft.spinFor(reverse, 2.3, rev, false);
@@ -73,38 +75,41 @@ void autoSkills()
 
     driveToGoal(YGOAL);
 
-    Base.spinFor(forward, 8, rev);
+    Base.spinFor(forward, 7.1, rev);
 
-    Base.spinFor(reverse, 2, rev);
+    Base.spinFor(reverse, 0.75, rev);
 
-    BaseLeft.spinFor(forward, 1.5, rev, false);
-    BaseRight.spinFor(reverse, 1.5, rev);
+    BaseLeft.spinFor(forward, 1.8, rev, false);
+    BaseRight.spinFor(reverse, 1.8, rev);
 
-    Base.spinFor(reverse, 1, rev);
+    Base.spinFor(reverse, 0.5, rev);
 
     driveToGoal(YGOAL);
 
-    Base.spinFor(forward, 6, rev);
+    Base.spinFor(forward, 6.5, rev);
 
     Base.spinFor(reverse, 1, rev);
 
     BaseLeft.spinFor(reverse, 1.5, rev, false);
     BaseRight.spinFor(forward, 1.5, rev);
 
+    driveToGoal(YGOAL);
+
     Base.spinFor(forward, 5, rev);
     BaseRight.spinFor(forward, 1.75, rev);
-    Base.spinFor(forward, 0.5, rev);
+    Base.spinFor(forward, 1, rev);
 
-    Base.spinFor(reverse, 1.5, rev);
+    Base.spinFor(reverse, 2, rev);
 
-    BaseLeft.spinFor(forward, 2.65, rev, false);
-    BaseRight.spinFor(reverse, 2.65, rev);
+    BaseLeft.spinFor(forward, 2.8, rev, false);
+    BaseRight.spinFor(reverse, 2.8, rev);
 
     Base.spinFor(reverse, 1, rev);
 
-    Lift.spinFor(forward, 4, rev, false);
-    Base.spinFor(forward, 2, rev);
-    Lift.spinFor(reverse, 4, rev, false);
+    Base.spinFor(forward, 1, rev, false);
+    Lift.spinFor(forward, 4, rev);
+    Lift.spinFor(reverse, 4, rev);
+    Base.spinFor(forward, 1, rev);
 
     driveToGoal(RGOAL);
     Base.spinFor(forward, 2.5, rev);
@@ -113,10 +118,13 @@ void autoSkills()
 
     wait(1, sec);
 
-    Base.spinFor(reverse, 10, rev);
+    BaseLeft.spinFor(forward, 3, rev, false);
+    BaseRight.spinFor(reverse, 3, rev);
+
+    Base.spinFor(forward, 10.5, rev);
 }
 
-void driveToGoal(signature goalSig)
+void driveToGoal(vex::vision::signature goalSig)
 {
     while (true)
     {
@@ -145,7 +153,6 @@ void driveToGoal(signature goalSig)
                 {
                     Brain.Screen.setCursor(2, 1);
                     Brain.Screen.print("Close to Goal");
-                    Base.stop(coast);
                     return;
                 }
                 else
@@ -162,7 +169,7 @@ void driveToGoal(signature goalSig)
     }
 }
 
-bool closeToGoal(signature goalSig)
+bool closeToGoal(vex::vision::signature goalSig)
 { // Is the Goal close enough?
     return Vision.objects[0].width > 180;
 }
